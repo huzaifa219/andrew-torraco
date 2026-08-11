@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Mutual Success Partners"
+description = "A premium revenue intelligence website for service businesses, centered around an interactive Revenue Opportunity Calculator that reveals hidden growth potential and guides qualified visitors toward a discovery call."
+version = "1.0.0"
+id = "artifacts/mutual-success-partners"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25471
+
+[services.development]
+run = "pnpm --filter @workspace/mutual-success-partners run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mutual-success-partners", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mutual-success-partners/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25471"
+BASE_PATH = "/"
